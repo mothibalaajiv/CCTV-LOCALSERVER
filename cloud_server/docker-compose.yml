@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./api
+    container_name: cctv_cloud_api
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      # Mount docker socket so the API can restart containers if needed for recovery
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DATABASE_URL=sqlite:////app/data/cctv.db
+
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: cctv_mediamtx
+    restart: always
+    ports:
+      - "8554:8554"  # RTSP receiver
+      - "8888:8888"  # HLS output
+      - "8001:8001"  # MediaMTX API
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml

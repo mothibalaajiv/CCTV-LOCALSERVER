@@ -1,0 +1,8 @@
+requests==2.31.0
+python-dotenv==1.0.1
+pydantic==2.7.1
+pydantic-settings==2.2.1
+onvif-zeep==0.2.12
+urllib3==2.2.1
+psutil==5.9.8
+paramiko==3.4.0
