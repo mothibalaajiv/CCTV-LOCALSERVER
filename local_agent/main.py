@@ -89,20 +89,19 @@ class LocalServerAgent:
                 for ip in active_ips:
                     cam_info = self.camera_aggregator.create_camera_info(ip)
                     
-                    # Check if it's actually a camera (has ONVIF, RTSP URL, or port 554 open)
-                    is_camera = False
-                    if cam_info.onvif_info or cam_info.rtsp_url:
-                        is_camera = True
-                    else:
-                        try:
-                            with socket.create_connection((ip, 554), timeout=1):
-                                is_camera = True
-                        except Exception:
-                            pass
+                    # Check if it's actually a camera by strictly validating its RTSP URL or ONVIF
+                    is_valid_camera = False
+                    
+                    if cam_info.rtsp_url:
+                        cam_info.validation_status = self.rtsp_validator.validate_url(cam_info.rtsp_url)
+                        if cam_info.validation_status:
+                            is_valid_camera = True
                             
-                    if is_camera:
-                        if cam_info.rtsp_url:
-                            cam_info.validation_status = self.rtsp_validator.validate_url(cam_info.rtsp_url)
+                    if not is_valid_camera and cam_info.onvif_info:
+                        # Sometimes RTSP validation fails but ONVIF succeeded. We still count it as a camera.
+                        is_valid_camera = True
+
+                    if is_valid_camera:
                         new_camera_list.append(cam_info)
                     
                 # 3. Detect Changes
@@ -129,7 +128,12 @@ class LocalServerAgent:
                         self.stream_pusher.stop_pushing(removed_cams)
                         
                 # Check health of ffmpeg processes
-                self.stream_pusher.check_health()
+                dead_streams = self.stream_pusher.check_health()
+                if dead_streams:
+                    logger.info(f"Attempting to restart {len(dead_streams)} dead streams...")
+                    restart_cams = [c for c in self.current_cameras if c.mac_address.replace(":", "").lower() in dead_streams]
+                    if restart_cams:
+                        self.stream_pusher.start_pushing(restart_cams)
                     
                 if new_cams or removed_cams or changed_cams:
                     for cam in new_cams:

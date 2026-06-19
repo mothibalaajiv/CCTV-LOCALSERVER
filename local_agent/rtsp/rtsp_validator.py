@@ -19,10 +19,19 @@ class RTSPValidator:
             if not host:
                 return False
 
-            with socket.create_connection((host, port), timeout=timeout):
-                # Simply connecting is a basic test. 
-                # For more robust validation, we could send an RTSP OPTIONS request.
-                return True
+            with socket.create_connection((host, port), timeout=timeout) as s:
+                # Send an RTSP OPTIONS request to ensure it's actually an RTSP server
+                # and not just a random service (like a router ALG or Windows Media Service) on port 554
+                request = f"OPTIONS {rtsp_url} RTSP/1.0\r\nCSeq: 1\r\nUser-Agent: CCTV-Agent\r\n\r\n"
+                s.sendall(request.encode('utf-8'))
+                
+                # We only read the first chunk to check the protocol signature
+                response = s.recv(1024).decode('utf-8', errors='ignore')
+                
+                # A valid RTSP server will respond with RTSP/1.0
+                if response.startswith("RTSP/1."):
+                    return True
+                return False
         except Exception as e:
             logger.debug(f"RTSP validation failed for {rtsp_url}: {e}")
             return False

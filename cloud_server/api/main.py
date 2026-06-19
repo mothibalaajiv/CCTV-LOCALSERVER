@@ -48,6 +48,12 @@ def receive_heartbeat(payload: Dict[str, Any]):
     database["heartbeats"][mac] = payload
     return {"status": "success"}
 
+@app.post("/api/metadata/change")
+def camera_change(payload: Dict[str, Any]):
+    # In a real app, you would log or process specific camera changes here
+    # For now, we just acknowledge receipt
+    return {"status": "success", "received": True}
+
 @app.get("/api/metadata/verify/{camera_mac}")
 def verify_metadata(camera_mac: str):
     for server_mac, payload in database["metadata"].items():

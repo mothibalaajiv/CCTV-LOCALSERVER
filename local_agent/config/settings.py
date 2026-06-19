@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     CLOUD_SSH_HOST: Optional[str] = None
     CLOUD_SSH_USER: Optional[str] = None
     CLOUD_SSH_PASSWORD: Optional[str] = None
+    CAMERA_USERNAME: Optional[str] = None
+    CAMERA_PASSWORD: Optional[str] = None
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

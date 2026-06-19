@@ -45,7 +45,9 @@ class StreamPusherService:
                 
                 logger.info(f"Starting stream push for {cam.mac_address} to {cloud_url}")
                 try:
-                    process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    # Open a log file for this specific stream to capture ffmpeg errors
+                    log_file = open(f"ffmpeg_{mac_clean}.log", "w")
+                    process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=log_file)
                     self.active_processes[mac_clean] = process
                 except FileNotFoundError:
                     logger.error("FFmpeg not found! Please ensure FFmpeg is installed and added to your system PATH.")
@@ -67,10 +69,10 @@ class StreamPusherService:
                     except subprocess.TimeoutExpired:
                         process.kill()
 
-    def check_health(self):
-        """Checks if any FFmpeg processes crashed and removes them from active dict so they get restarted next cycle."""
+    def check_health(self) -> List[str]:
+        """Checks if any FFmpeg processes crashed and returns their MACs."""
+        dead_streams = []
         with self.lock:
-            dead_streams = []
             for mac, process in self.active_processes.items():
                 if process.poll() is not None:
                     logger.warning(f"FFmpeg process for stream {mac} died unexpectedly.")
@@ -78,3 +80,4 @@ class StreamPusherService:
             
             for mac in dead_streams:
                 del self.active_processes[mac]
+        return dead_streams
