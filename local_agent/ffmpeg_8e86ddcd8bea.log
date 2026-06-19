@@ -1,5 +1,1 @@
-[vost#0:0/copy @ 000001fe7d3d9040] Error submitting a packet to the muxer: Broken pipe
-    Last message repeated 1 times
-[out#0/rtsp @ 000001fe7cb64d00] Error muxing a packet
-[out#0/rtsp @ 000001fe7cb64d00] Task finished with error code: -32 (Broken pipe)
-[out#0/rtsp @ 000001fe7cb64d00] Terminating thread with return code -32 (Broken pipe)
+[in#0/rtsp @ 000002722e084780] Error during demuxing: Error number -10054 occurred

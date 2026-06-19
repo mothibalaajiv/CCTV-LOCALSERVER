@@ -74,3 +74,30 @@
 2026-06-19 16:00:49,998 - network_scanner - INFO - Network scan completed. Found 4 active devices.
 2026-06-19 16:06:03,350 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
 2026-06-19 16:06:05,983 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:11:19,650 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:11:22,508 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:16:35,778 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:16:38,449 - network_scanner - INFO - Network scan completed. Found 2 active devices.
+2026-06-19 16:16:47,259 - change_detector - INFO - Detected 1 removed cameras.
+2026-06-19 16:20:30,065 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:20:32,870 - network_scanner - INFO - Network scan completed. Found 2 active devices.
+2026-06-19 16:22:07,809 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:22:10,448 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:22:32,883 - change_detector - INFO - Detected 1 new cameras.
+2026-06-19 16:27:33,817 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:27:36,881 - network_scanner - INFO - Network scan completed. Found 2 active devices.
+2026-06-19 16:27:45,893 - change_detector - INFO - Detected 1 removed cameras.
+2026-06-19 16:32:46,602 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:32:49,450 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:33:03,015 - change_detector - INFO - Detected 1 new cameras.
+2026-06-19 16:38:03,943 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:38:06,874 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:43:19,905 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:43:22,882 - network_scanner - INFO - Network scan completed. Found 2 active devices.
+2026-06-19 16:43:31,919 - change_detector - INFO - Detected 1 removed cameras.
+2026-06-19 16:44:00,997 - network_scanner - INFO - Starting network scan on subnet: 192.168.1.0/24
+2026-06-19 16:44:03,433 - network_scanner - INFO - Network scan completed. Found 4 active devices.
+2026-06-19 16:44:16,671 - change_detector - INFO - Detected 1 new cameras.
+2026-06-19 18:31:19,092 - network_scanner - INFO - Starting network scan on subnet: 10.1.152.0/24
+2026-06-19 18:31:22,910 - network_scanner - INFO - Network scan completed. Found 0 active devices.
+2026-06-19 18:31:22,911 - change_detector - INFO - Detected 1 removed cameras.
